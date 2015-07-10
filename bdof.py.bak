@@ -61,7 +61,7 @@ def main():
 
 	dof = Bdof()
 	dof.unpack( data[:len(dof)] )
-	print(dof)
+	print dof
 
 if __name__ == "__main__":
 	main()

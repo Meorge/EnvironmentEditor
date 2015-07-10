@@ -1,6 +1,6 @@
 
 def nullterm(str_plus):
-	z = str_plus.find('\0')
+	z = str(str_plus).find(str('\0'))
 	if z != -1:
 		return str_plus[:z]
 	else:

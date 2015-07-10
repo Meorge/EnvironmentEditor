@@ -146,13 +146,13 @@ class Blight(object):
 			self.lght.unpack( data[offset:offset+len(self.lght)] )
 			offset += len(self.lght)
 
-			for x in range( self.lght.LOBJ_cnt ):
+			for x in xrange( self.lght.LOBJ_cnt ):
 				lobj = self.LOBJ()
 				lobj.unpack( data[offset:offset+len(lobj) ] )
 				offset += len(lobj)
 				self.lobjs.append(lobj)
 
-			for x in range( self.lght.Other_cnt ):
+			for x in xrange( self.lght.Other_cnt ):
 				other = self.Other()
 				other.unpack( data[offset:offset+len(other) ] )
 				offset += len(other)
@@ -163,13 +163,13 @@ class Blight(object):
 		self.lght.unpack( data[offset:offset+len(lght)] )
 		offset += len(lght)
 
-		for x in range( self.lght.LOBJ_cnt ):
+		for x in xrange( self.lght.LOBJ_cnt ):
 			lobj = self.LOBJ()
 			lobj.unpack( data[offset:offset+len(lobj) ] )
 			offset += len(lobj)
 			self.lobjs.append(lobj)
 
-		for x in range( self.lght.Other_cnt ):
+		for x in xrange( self.lght.Other_cnt ):
 			other = self.Other()
 			other.unpack( data[offset:offset+len(other) ] )
 			offset += len(other)
@@ -200,31 +200,31 @@ class Blight(object):
 		return out
 
 	def GetDifferences(self):
-		for x in range( len(self.lobjs) ):
+		for x in xrange( len(self.lobjs) ):
 			if self.lobjs[x].Flags != 0x02000000:
-				print("Flags wrong: %08x (%d)" % (self.lobjs[x].Flags, x))
-		for x in range( len(self.lobjs) ):
+				print "Flags wrong: %08x (%d)" % (self.lobjs[x].Flags, x)
+		for x in xrange( len(self.lobjs) ):
 			if self.lobjs[x].Unk1 != 0:
-				print("Unk1 wrong: %08x (%d)" % (self.lobjs[x].Unk1, x))
-		for x in range( len(self.lobjs) ):
+				print "Unk1 wrong: %08x (%d)" % (self.lobjs[x].Unk1, x)
+		for x in xrange( len(self.lobjs) ):
 			if self.lobjs[x].Unk2 != 1:
-				print("Unk2 wrong: %08x (%d)" % (self.lobjs[x].Unk2, x))
-		for x in range( len(self.lobjs) ):
+				print "Unk2 wrong: %08x (%d)" % (self.lobjs[x].Unk2, x)
+		for x in xrange( len(self.lobjs) ):
 			if self.lobjs[x].Unk3 != 1:
-				print("Unk3 wrong: %08x (%d)" % (self.lobjs[x].Unk3, x))
-		for x in range( len(self.lobjs) ):
+				print "Unk3 wrong: %08x (%d)" % (self.lobjs[x].Unk3, x)
+		for x in xrange( len(self.lobjs) ):
 			if (self.lobjs[x].Unk3 & 0x0000ff00) != 0x0600:
-				print("Unk3 byte3 wrong: %08x (%d)" % (self.lobjs[x].Unk3 & 0xff00, x))
-		for x in range( len(self.lobjs) ):
-			print("Position: %.1f %.1f %.1f (%d)" % (self.lobjs[x].X,self.lobjs[x].Y,self.lobjs[x].Z, x))
-			print("Color: %08x %08x" % (self.lobjs[x].color1, self.lobjs[x].color2))
+				print "Unk3 byte3 wrong: %08x (%d)" % (self.lobjs[x].Unk3 & 0xff00, x)
+		for x in xrange( len(self.lobjs) ):
+			print "Position: %.1f %.1f %.1f (%d)" % (self.lobjs[x].X,self.lobjs[x].Y,self.lobjs[x].Z, x)
+			print "Color: %08x %08x" % (self.lobjs[x].color1, self.lobjs[x].color2)
 
 def CheckFogds():
 	dir = "Env_course.arc.unpacked/fog"
 	files = os.listdir(dir)
 	for file in files:
-		print("FILE: %s" % file)
-		print("-=-=-=-=-=-=-=-")
+		print "FILE: %s" % file
+		print "-=-=-=-=-=-=-=-"
 		bfog = Bfog(open(dir + "/" + file, 'rb').read())
 		for x in bfog.fogds:
 			assert x.Unk1 == 0
@@ -235,12 +235,12 @@ def CheckFogds():
 			assert x.Unk6 == 0
 			if x.Float1 == 0 and x.Float2 == 0 and x.Color == 0:
 				continue
-			print(x.TablePrint())
+			print x.TablePrint()
 	dir = "Env_movie.arc.unpacked/fog"
 	files = os.listdir(dir)
 	for file in files:
-		print("FILE: %s" % file)
-		print("-=-=-=-=-=-=-=-")
+		print "FILE: %s" % file
+		print "-=-=-=-=-=-=-=-"
 		bfog = Bfog(open(dir + "/" + file, 'rb').read())
 		for x in bfog.fogds:
 			assert x.Unk1 == 0
@@ -251,12 +251,12 @@ def CheckFogds():
 			assert x.Unk6 == 0
 			if x.Float1 == 0 and x.Float2 == 0 and x.Color == 0:
 				continue
-			print(x.TablePrint())
+			print x.TablePrint()
 	dir = "Env_world.arc.unpacked/fog"
 	files = os.listdir(dir)
 	for file in files:
-		print("FILE: %s" % file)
-		print("-=-=-=-=-=-=-=-")
+		print "FILE: %s" % file
+		print "-=-=-=-=-=-=-=-"
 		bfog = Bfog(open(dir + "/" + file, 'rb').read())
 		for x in bfog.fogds:
 			assert x.Unk1 == 0
@@ -267,7 +267,7 @@ def CheckFogds():
 			assert x.Unk6 == 0
 			if x.Float1 == 0 and x.Float2 == 0 and x.Color == 0:
 				continue
-			print(x.TablePrint())
+			print x.TablePrint()
 
 def CheckLobjs():
 	dir = "Env_course.arc.unpacked/light"
@@ -286,7 +286,7 @@ def CheckLobjs():
 			assert x.Unk7 == 0
 			if x.Unk8 == 0:
 				continue
-			print(x.TablePrint())
+			print x.TablePrint()
 	dir = "Env_movie.arc.unpacked/light"
 	files = os.listdir(dir)
 	for file in files:
@@ -303,7 +303,7 @@ def CheckLobjs():
 			assert x.Unk7 == 0
 			if x.Unk8 == 0:
 				continue
-			print(x.TablePrint())
+			print x.TablePrint()
 	dir = "Env_world.arc.unpacked/light"
 	files = os.listdir(dir)
 	for file in files:
@@ -320,7 +320,7 @@ def CheckLobjs():
 			assert x.Unk7 == 0
 			if x.Unk8 == 0:
 				continue
-			print(x.TablePrint())
+			print x.TablePrint()
 
 def CheckLght():
 	#FIXME
@@ -334,7 +334,7 @@ def CheckLght():
 		blight = Blight(open(dir1 + "/" + file, 'rb').read())
 		if blight.lght.Magic != 0x4c474854:
 			continue
-		print(blight.lght.TablePrint())
+		print blight.lght.TablePrint()
 	'''
 	dir = "Env_movie.arc.unpacked/light"
 	files = os.listdir(dir)
@@ -580,12 +580,12 @@ def main():
 			file = open(sys.argv[1], 'rb').read()
 			if sys.argv[1][-7:] == ".blight":
 				blight = Blight(file)
-				print(blight.TablePrint())
+				print blight.TablePrint()
 				#blight.GetDifferences()
 			else:
 				bfog = Bfog(file)
-				print(bfog.TablePrint())
-				print(bfog)
+				print bfog.TablePrint()
+				print bfog
 	else:
 		#CheckLght()
 		#CheckLobjs()
